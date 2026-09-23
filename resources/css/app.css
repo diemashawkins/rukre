@@ -1,0 +1,232 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/*
+ * "Kinetic Obsidian" design system from the RUKRE Stitch export (docs/DESIGN.md).
+ */
+@theme inline {
+    --font-display: var(--rk-font-display, 'Syne'), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--rk-font-body, 'Plus Jakarta Sans'), ui-sans-serif, system-ui, sans-serif;
+    --font-label: var(--rk-font-label, 'Space Grotesk'), ui-sans-serif, system-ui, sans-serif;
+    --font-serif: var(--rk-font-serif, 'Literata'), 'Source Serif 4', Georgia, serif;
+}
+
+@theme {
+    --color-primary: #ffd300;
+    --color-primary-hover: #ffe600;
+    --color-primary-soft: #fff3d4;
+    --color-crimson: #ef4444;
+    --color-neon-cyan: #06b6d4;
+
+    --color-canvas: #121214;
+    --color-surface-deep: #0b0b0c;
+    --color-surface-card: #18181b;
+    --color-surface-flyout: #222226;
+    --color-surface-elevated: #2e2e33;
+    --color-border-subtle: #27272a;
+    --color-border-strong: #3f3f46;
+
+    --color-text-primary: #ffffff;
+    --color-text-body: #e5e1e4;
+    --color-text-muted: #a1a1aa;
+    --color-text-dim: #71717a;
+
+    --radius-sm: 0.25rem;
+    --radius: 0.5rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1rem;
+
+    --shadow-flyout: 0 12px 32px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 16px rgba(255, 211, 0, 0.25);
+}
+
+@layer base {
+    html {
+        color-scheme: dark;
+        background: var(--color-surface-deep);
+    }
+
+    body {
+        @apply bg-canvas font-sans text-[15px] leading-[22px] text-text-body antialiased;
+    }
+
+    ::selection {
+        background: rgba(255, 211, 0, 0.35);
+        color: #fff;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+}
+
+@layer components {
+    /* Typography scale */
+    .type-hero {
+        @apply font-display text-[36px] leading-[42px] font-extrabold tracking-[-0.02em] text-text-primary md:text-[56px] md:leading-[64px] md:tracking-[-0.03em];
+    }
+
+    .type-headline {
+        @apply font-display text-[28px] leading-[34px] font-bold tracking-[-0.01em] text-text-primary md:text-[40px] md:leading-[48px] md:tracking-[-0.02em];
+    }
+
+    .type-title {
+        @apply font-display text-2xl leading-8 font-bold tracking-[-0.01em] text-text-primary;
+    }
+
+    .type-subtitle {
+        @apply font-display text-lg leading-6 font-bold text-text-primary;
+    }
+
+    .type-label {
+        @apply font-label text-xs leading-4 font-semibold tracking-[0.06em] uppercase;
+    }
+
+    .type-label-sm {
+        @apply font-label text-[10px] leading-3 font-bold tracking-[0.08em] uppercase;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 font-label text-sm font-semibold tracking-[0.05em] text-black uppercase transition hover:scale-[1.02] hover:bg-primary-hover md:h-11;
+    }
+
+    .btn-secondary {
+        @apply inline-flex h-12 items-center justify-center gap-2 rounded-full border-[1.5px] border-border-subtle px-6 font-label text-sm font-semibold tracking-[0.05em] text-text-primary uppercase transition hover:bg-border-subtle md:h-11;
+    }
+
+    .btn-icon {
+        @apply inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-card text-text-muted transition hover:text-primary hover:shadow-[0_0_12px_rgba(255,255,255,0.15)];
+    }
+
+    /* Chips & badges */
+    .chip {
+        @apply inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border-subtle bg-surface-card px-3 py-1 font-label text-xs font-semibold tracking-[0.06em] whitespace-nowrap text-text-muted uppercase transition hover:border-border-strong hover:text-text-primary;
+    }
+
+    .chip-active {
+        @apply border-primary bg-primary text-black hover:border-primary hover:text-black;
+    }
+
+    .badge {
+        @apply inline-flex items-center rounded-sm px-1.5 py-0.5 font-label text-[10px] leading-3 font-bold tracking-[0.08em] uppercase;
+    }
+
+    /* Surfaces */
+    .card {
+        @apply rounded-md border border-border-subtle bg-surface-card;
+    }
+
+    .flyout {
+        @apply rounded-md border border-border-strong bg-surface-flyout shadow-flyout;
+    }
+
+    .glass {
+        background: rgba(18, 18, 20, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .input {
+        @apply h-11 w-full rounded-md border border-border-subtle bg-surface-card px-4 text-text-primary placeholder:text-text-dim focus:border-2 focus:border-primary focus:px-[15px] focus:outline-none;
+    }
+
+    .shelf {
+        @apply -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 md:-mx-8 md:scroll-px-8 md:px-8 xl:-mx-12 xl:scroll-px-12 xl:px-12;
+        scrollbar-width: none;
+    }
+
+    .shelf::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrim {
+        background: linear-gradient(to top, rgba(11, 11, 12, 0.95) 0%, rgba(11, 11, 12, 0.4) 45%, transparent 75%);
+    }
+}
+
+/* Video card hover scrubber */
+.video-card .scrubber {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.9s ease-out;
+}
+
+.video-card:hover .scrubber,
+.video-card:focus-visible .scrubber {
+    transform: scaleX(1);
+}
+
+/* Episode / track rows turn their index into a play icon on hover */
+.track-row .track-play,
+.track-row.is-playing .track-index {
+    display: none;
+}
+
+.track-row:hover .track-index {
+    display: none;
+}
+
+.track-row:hover .track-play,
+.track-row.is-playing .track-play {
+    display: inline-flex;
+}
+
+.track-row.is-playing {
+    @apply bg-surface-card;
+}
+
+.track-row.is-playing .track-title {
+    @apply text-primary;
+}
+
+/* Mini-player progress bar across the top edge */
+.player-range {
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(to right, var(--color-primary) var(--fill, 0%), var(--color-border-subtle) var(--fill, 0%));
+    height: 3px;
+    cursor: pointer;
+}
+
+.player-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.player-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--color-primary);
+}
+
+/* EPUB reader */
+.reader-serif {
+    font-family: var(--font-serif);
+}
+
+/* Top loading bar while htmx swaps pages */
+.htmx-request.progress-bar {
+    opacity: 1;
+    animation: nav-progress 1.2s ease-out forwards;
+}
+
+@keyframes nav-progress {
+    from {
+        transform: scaleX(0.05);
+    }
+
+    to {
+        transform: scaleX(0.9);
+    }
+}
